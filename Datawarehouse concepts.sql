@@ -226,41 +226,41 @@ sans gestion complexe d’infrastructure.
 Guide de création d''un pipeline dans Azure Data Factory (ADF) :
 ----------------------------------------------------------------
 
-Étape 1 : Accéder au portail Azure Data Factory
+	Étape 1 : Accéder au portail Azure Data Factory
 
-	- Connectez-vous au portail Azure.
-	- Créez une fabrique de données (Data Factory) si ce n’est pas déjà fait.
-	- Ouvrez Azure Data Factory Studio depuis la ressource créée.
+		- Connectez-vous au portail Azure.
+		- Créez une fabrique de données (Data Factory) si ce n’est pas déjà fait.
+		- Ouvrez Azure Data Factory Studio depuis la ressource créée.
 
-Étape 2 : Créer un nouveau pipeline
+	Étape 2 : Créer un nouveau pipeline
 
-	- Dans ADF Studio, allez dans l’onglet Auteur (icône crayon).
-	- Cliquez sur le signe + puis sélectionnez Pipeline pour en créer un nouveau.
-	- Un canevas de conception s’affiche pour construire visuellement votre pipeline.
+		- Dans ADF Studio, allez dans l’onglet Auteur (icône crayon).
+		- Cliquez sur le signe + puis sélectionnez Pipeline pour en créer un nouveau.
+		- Un canevas de conception s’affiche pour construire visuellement votre pipeline.
 
-Étape 3 : Ajouter des activités au pipeline
+	Étape 3 : Ajouter des activités au pipeline
 
-	- Sur la gauche, vous avez un volet d’activités (ex : copie de données, exécuter un notebook, traitement, 
-	   boucle…).
-	- Faites glisser l’activité de copie (Copy Data) sur le canevas.
+		- Sur la gauche, vous avez un volet d’activités (ex : copie de données, exécuter un notebook, traitement, 
+		   boucle…).
+		- Faites glisser l’activité de copie (Copy Data) sur le canevas.
 
-Étape 4 : Configurer la source de données (source)
+	Étape 4 : Configurer la source de données (source)
 
-	- Cliquez sur l’activité de copie.
-	- Dans le panneau de configuration, définissez un service lié (linked service) pour choisir et connecter la 
-	  source de vos données (ex. base SQL, Blob storage).
-	- Spécifiez l''ensemble de données source (dataset) représentant la table ou les fichiers à copier.
-	- Vous pouvez appliquer des filtres ou requêtes pour sélectionner des données précises.
+		- Cliquez sur l’activité de copie.
+		- Dans le panneau de configuration, définissez un service lié (linked service) pour choisir et connecter  
+		  la source de vos données (ex. base SQL, Blob storage).
+		- Spécifiez l''ensemble de données source (dataset) représentant la table ou les fichiers à copier.
+		- Vous pouvez appliquer des filtres ou requêtes pour sélectionner des données précises.
 
-Étape 5 : Configurer la destination (sink)
+	Étape 5 : Configurer la destination (sink)
 
-	- Dans les mêmes paramètres, définissez le service lié et l’ensemble de données cible où les données seront 
-	  chargées.
+		- Dans les mêmes paramètres, définissez le service lié et l’ensemble de données cible où les données  
+		  seront chargées.
 
-Étape 6 : Mapper les colonnes source et destination
+	Étape 6 : Mapper les colonnes source et destination
 
-	- Allez à l’onglet Mapping.
-	- Vérifiez ou mappez manuellement les colonnes source vers les colonnes de destination.
+		- Allez à l’onglet Mapping.
+		- Vérifiez ou mappez manuellement les colonnes source vers les colonnes de destination.
 
 Étape 7 : Valider et tester le pipeline
 
@@ -284,5 +284,78 @@ entre différentes sources et destinations, tout en automatisant les workflows v
 
 Pour des cas plus avancés, vous pouvez ajouter des activités de transformation, inclure des flux de données 
 (Data Flows), ou orchestrer des calculs avec d’autres services comme Databricks.
+
+
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+Chap.3 : Azure Data Lake Storage
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+Azure Data Lake est une solution cloud de Microsoft qui permet de stocker, gérer et analyser de très grandes 
+quantités de données, qu’elles soient structurées, semi-structurées ou non structurées, dans leur format natif. 
+C’est un référentiel de données centralisé, conçu pour le Big Data, qui facilite l’ingestion massive de données,
+leur stockage économique et sécurisé, ainsi que leur analyse avancée, notamment avec des outils comme Apache 
+Spark, Hadoop, et Azure Synapse.
+
+Composants principaux d’Azure Data Lake
+---------------------------------------
+
+* Azure Data Lake Storage (ADLS) : Ceci est la couche de stockage scalable et sécurisée basée sur Azure Blob 
+       Storage, avec support d’un système de fichiers hiérarchique, gestion des accès et haute disponibilité.
+
+* Azure Data Lake Analytics (fonctionnalité désormais intégrée dans d’autres services comme Azure Synapse) : 
+  service de traitement analytique à la demande, permettant d’exécuter des analyses massives distribuées avec 
+  peu d’administration.
+
+Principaux avantages
+-------------------
+
+	- Stockage illimité et économique de données dans tous formats.
+	- Forte intégration avec l’écosystème Azure (Data Factory, Synapse, Machine Learning).
+	- Gestion fine des accès et sécurité conforme aux standards.
+	- Support d’analyses en temps réel et traitement big data.
+	- Optimisation des coûts grâce à la séparation du calcul et du stockage.
+
+Usage typique
+-------------
+
+Azure Data Lake est utilisé pour centraliser les données brutes d’entreprise, faciliter les traitements 
+analytiques avancés, les explorations de données, la science des données, et alimenter des bases de données 
+analytiques ou des solutions de BI.
+
+En résumé, Azure Data Lake offre une plateforme robuste et flexible pour stocker et analyser des données 
+massives à l’échelle du cloud, adaptant ainsi les besoins big data des entreprises modernes.
+
+Azure Data Lake vs Data Warehouse :
+----------------------------------
+
+Avantage						Azure Data Lake										Data Warehouse
+---------------					----------------------------						----------------------------
+Type de données stockées		Données brutes : structurées, semi-structurées, 	Données structurées et transformées
+								non structurées	
+
+Schéma							Schéma appliqué à la lecture (« schema on read »), 	Schéma appliqué à l’écriture (« schema on write »), rigide
+								très flexible	
+								
+Flexibilité						Très flexible pour ingérer tout type de données 	Moins flexible, nécessite une structuration rigoureuse des données
+								sans transformation préalable	
+								
+Scalabilité et coût				Économique et scalable pour stocker de très 		Plus coûteux et difficile à scaler
+								grandes quantités de données
+								
+Cas d’usage						Analytique avancée, machine learning, exploration 	BI, reporting opérationnel, analyse structurée
+								de données complexes	
+								
+Performance des requêtes		Peut nécessiter plus d’optimisation, dépend du 		Optimisé pour des requêtes complexes rapides
+								traitement à la lecture	
+								
+Utilisateurs principaux			Data scientists, ingénieurs data					Analystes BI, décideurs métier
+
+Traitement des données			ELT (Extract, Load, Transform)						ETL (Extract, Transform, Load)
+
+
+En résumé, Azure Data Lake offre une plus grande flexibilité et scalabilité pour le stockage massif de données 
+variées, idéal pour des usages exploratoires, d’IA et de machine learning. 
+Le Data Warehouse est plus adapté à des données structurées et traitées pour un usage métier orienté reporting 
+et analyse rapide, mais est plus rigide et coûteux à gérer.
 
 
