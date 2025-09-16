@@ -171,5 +171,118 @@ In practice, a modern data stack often combines these elements. For example, you
 	Transform the integrated data into a Dimensional Model for consumption (ELT pattern).
 	Use a Hub-and-Spoke style to manage the flow.
 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+Chap.2 : Azure Data Factory 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+Azure Data Factory (ADF) est un service cloud de Microsoft Azure qui permet d’orchestrer, automatiser et gérer 
+des processus de déplacement et de transformation de données. Il s’agit d’une plateforme ETL/ELT (Extraction, 
+Transformation, Chargement) sans serveur (serverless), conçue pour intégrer, transformer et déplacer des données
+ entre diverses sources et destinations, que ce soit dans le cloud ou sur site.
+
+Fonctionnalités principales d’Azure Data Factory
+------------------------------------------------
+
+* Orchestration de pipelines de données : ADF organise les étapes (activités) nécessaires pour collecter, 
+	transformer et déplacer les données au sein d’un workflow (appelé pipeline). Ces activités peuvent s''
+	exécuter en séquence ou parallèlement.
+
+* Connectivité étendue : Il permet de se connecter à un grand nombre de sources de données (bases SQL, fichiers, 
+	SaaS, cloud, on-premise).
+
+* Transformation des données : ADF supporte des transformations personnalisées via des clusters Spark, HDInsight 
+	ou des flux de données visuels intégrés, permettant de nettoyer, enrichir et agréger les données sans gérer 
+	l''infrastructure sous-jacente.
+
+* Automatisation et déclencheurs: Il est possible d’automatiser l’exécution des pipelines en fonction d’événements, 
+	de calendriers ou de conditions spécifiques.
+
+* Sécurité intégrée : Contrôle d’accès via Azure AD, chiffrement, gestion des rôles pour assurer la protection 
+	des données et la conformité.
+
+Concepts clés
+----------------
+
+	* Pipelines : Regroupement logique d’activités formant une unité de travail.
+	* Activités : Actions individuelles pour déplacer ou transformer les données.
+	* Ensembles de données (datasets) : Représentation des données sources ou cibles utilisés dans les activités.
+	* Services liés (linked services) : Points de connexion vers les systèmes source et cible.
+	* Flux de données : Graphes visuels de transformations des données exécutés sur des clusters Spark.
+	* Runtime d’intégration : Environnement d’exécution des tâches, sur cloud ou local.
+
+Utilisation typique
+----------------
+
+	* Connexion aux sources de données variées (ex. base SQL, fichiers CSV, APIs).
+	* Création de pipelines pour orchestrer l’extraction, le déplacement et la transformation.
+	* Automatisation avec déclencheurs horaires, événements ou manuels.
+	* Surveillance en temps réel des exécutions et gestion des erreurs.
+	* Livraison et préparation de données pour l’analyse, les rapports ou d’autres services cloud.
+
+Azure Data Factory offre ainsi une solution robuste et scalable pour gérer les processus complexes de data 
+engineering dans une architecture moderne, facilitant l’intégration hybride de données et leur transformation 
+sans gestion complexe d’infrastructure.
+
+Guide de création d''un pipeline dans Azure Data Factory (ADF) :
+----------------------------------------------------------------
+
+Étape 1 : Accéder au portail Azure Data Factory
+
+	- Connectez-vous au portail Azure.
+	- Créez une fabrique de données (Data Factory) si ce n’est pas déjà fait.
+	- Ouvrez Azure Data Factory Studio depuis la ressource créée.
+
+Étape 2 : Créer un nouveau pipeline
+
+	- Dans ADF Studio, allez dans l’onglet Auteur (icône crayon).
+	- Cliquez sur le signe + puis sélectionnez Pipeline pour en créer un nouveau.
+	- Un canevas de conception s’affiche pour construire visuellement votre pipeline.
+
+Étape 3 : Ajouter des activités au pipeline
+
+	- Sur la gauche, vous avez un volet d’activités (ex : copie de données, exécuter un notebook, traitement, 
+	   boucle…).
+	- Faites glisser l’activité de copie (Copy Data) sur le canevas.
+
+Étape 4 : Configurer la source de données (source)
+
+	- Cliquez sur l’activité de copie.
+	- Dans le panneau de configuration, définissez un service lié (linked service) pour choisir et connecter la 
+	  source de vos données (ex. base SQL, Blob storage).
+	- Spécifiez l''ensemble de données source (dataset) représentant la table ou les fichiers à copier.
+	- Vous pouvez appliquer des filtres ou requêtes pour sélectionner des données précises.
+
+Étape 5 : Configurer la destination (sink)
+
+	- Dans les mêmes paramètres, définissez le service lié et l’ensemble de données cible où les données seront 
+	  chargées.
+
+Étape 6 : Mapper les colonnes source et destination
+
+	- Allez à l’onglet Mapping.
+	- Vérifiez ou mappez manuellement les colonnes source vers les colonnes de destination.
+
+Étape 7 : Valider et tester le pipeline
+
+	- Cliquez sur Debug pour exécuter une version de test.
+	- Vérifiez que les données sont correctement copiées.
+
+Étape 8 : Publier et planifier
+
+	- Cliquez sur Publier (Publish) pour enregistrer les modifications.
+	- Configurez un déclencheur (trigger) pour automatiser l’exécution :
+		- Déclencheur planifié (horaire, quotidien, mensuel…)
+		- Déclencheur basé sur un événement (ex. nouvel arrivage de données)
+
+Étape 9 : Surveiller l’exécution
+
+	- Allez dans l’onglet Surveillance (Monitor).
+	- Suivez les exécutions, réussites ou échecs et les logs d’exécution.
+
+Ce processus vous permet de construire un pipeline end-to-end capable de déplacer et transformer les données 
+entre différentes sources et destinations, tout en automatisant les workflows via Azure Data Factory.
+
+Pour des cas plus avancés, vous pouvez ajouter des activités de transformation, inclure des flux de données 
+(Data Flows), ou orchestrer des calculs avec d’autres services comme Databricks.
 
 
