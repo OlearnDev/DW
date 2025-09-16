@@ -1,4 +1,24 @@
-Datawarehouse concepts : 
+
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+Chap.1 : Datawarehouse concepts : 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+------------------------------------------------------------------
+
+							[Sources externes] 
+								  |
+							Azure Data Factory
+								  |
+							Azure Data Lake Storage
+								  |
+							Azure Databricks/Synapse ETL
+								  |
+							Azure SQL Database (Data Mart Marketing)
+								  |          |            |          
+							 FaitsMarketing  DimCampagne  DimClient  DimProduit  DimCanal
+								  |
+							Power BI (Reporting)
+------------------------------------------------------------------
 
 The term "data warehouse architecture data design" encompasses several layers. We can break it down into three main 
 categories:
@@ -12,6 +32,7 @@ categories:
 These are high-level blueprints for the entire data ecosystem.
 
 	a. Traditional Monolithic Architecture (Inmon Approach)
+	
 		Concept: The data warehouse is the central, integrated, subject-oriented, time-variant, and non-volatile core 
 		of the corporate information factory. Data is ingested from source systems into a normalized relational model 
 		(the "Enterprise Data Warehouse" or EDW). From there, data marts are created as logical or physical subsets 
@@ -73,65 +94,66 @@ These are high-level blueprints for the entire data ecosystem.
 
 This defines how tables and relationships are structured within a layer of the architecture.
 
-a. Third Normal Form (3NF) / Normalized
+	a. Third Normal Form (3NF) / Normalized
 
-	Purpose: To eliminate data redundancy and improve data integrity for transactional systems. This is the classic 
-	   design for the central EDW in the Inmon approach.
+		Purpose: To eliminate data redundancy and improve data integrity for transactional systems. This is the 
+			classic design for the central EDW in the Inmon approach.
 
-	Structure: Data is broken down into many tables with specific relationships (e.g., one-to-many). For example, 
-	   customer data might be split into Customer, Address, Contact_Number tables.
+		Structure: Data is broken down into many tables with specific relationships (e.g., one-to-many). For example, 
+		   customer data might be split into Customer, Address, Contact_Number tables.
 
-	Best for: The "single source of truth" integration layer where the focus is on efficient storage and capturing 
-	   complex relationships, not on query performance.
+		Best for: The "single source of truth" integration layer where the focus is on efficient storage and capturing 
+		   complex relationships, not on query performance.
 
-b. Dimensional Modeling
+	b. Dimensional Modeling
 
-	Purpose: To optimize data for querying and analysis in a data mart. This is the heart of the Kimball approach.
+		Purpose: To optimize data for querying and analysis in a data mart. This is the heart of the Kimball approach.
 
-	Structure: Uses two types of tables:
+		Structure: Uses two types of tables:
 
-	Fact Tables: Contain the measurable, quantitative data about a business process (e.g., sales_amount, quantity_sold). 
-	  They are the center of the star schema.
+		Fact Tables: Contain the measurable, quantitative data about a business process (e.g., sales_amount, 
+		             quantity_sold). They are the center of the star schema.
 
-	Dimension Tables: Contain descriptive attributes that provide context to the facts (e.g., Product, Customer, Time, 
-	Store). They surround the fact table.
+		Dimension Tables: Contain descriptive attributes that provide context to the facts (e.g., Product, Customer, Time, 
+		Store). They surround the fact table.
 
-	Best for: The presentation / consumption layer where business intelligence tools and analysts need fast, intuitive 
-	query performance.
+		Best for: The presentation / consumption layer where business intelligence tools and analysts need fast, intuitive 
+		query performance.
 
-c. Data Vault Modeling
+	c. Data Vault Modeling
 
-	Purpose: To provide a flexible, scalable, and auditable model for the raw data integration layer. It''s designed 
-	for agile data warehouse development.
+		Purpose: To provide a flexible, scalable, and auditable model for the raw data integration layer. It''s designed 
+		for agile data warehouse development.
 
-	Structure: Uses three core table types:
+		Structure: Uses three core table types:
 
-	Hubs: Represent a core business key (e.g., Customer_ID).
+		Hubs: Represent a core business key (e.g., Customer_ID).
 
-	Links: Represent a transaction or association between business keys (e.g., a link between a Customer_ID and an 
-	Account_ID).
+		Links: Represent a transaction or association between business keys (e.g., a link between a Customer_ID and an 
+		Account_ID).
 
-	Satellites: Contain all the descriptive attributes and history for a Hub or Link.
+		Satellites: Contain all the descriptive attributes and history for a Hub or Link.
 
-	Best for: The EDW integration layer in agile environments where sources change frequently, and you need to track 
-	all history without remodeling.
+		Best for: The EDW integration layer in agile environments where sources change frequently, and you need to 
+		track all history without remodeling.
 
 3. Data Design Patterns (How Data is Processed)
 
-a. ETL (Extract, Transform, Load)
+	a. ETL (Extract, Transform, Load)
 
-	Concept: Data is transformed before it is loaded into the target data warehouse.
+		Concept: Data is transformed before it is loaded into the target data warehouse.
 
-	Use Case: Traditional data warehousing where the target system requires clean, structured, and ready-to-query data.
-	Puts the load on the source or staging server.
+		Use Case: Traditional data warehousing where the target system requires clean, structured, and ready-to-query 
+				data.
+				Puts the load on the source or staging server.
 
-b. ELT (Extract, Load, Transform)
+	b. ELT (Extract, Load, Transform)
 
-	Concept: Data is extracted and loaded into the target storage (e.g., a Data Lake or cloud DWH) in its raw form. 
-	Transformations are then executed inside the powerful target system.
+		Concept: Data is extracted and loaded into the target storage (e.g., a Data Lake or cloud DWH) in its raw form. 
+		Transformations are then executed inside the powerful target system.
 
-	Use Case: Modern cloud data warehouses (BigQuery, Snowflake, Redshift) and data lakehouses where compute is 
-	scalable and separate from storage. Offers greater flexibility.
+		Use Case: Modern cloud data warehouses (BigQuery, Snowflake, Redshift) and data lakehouses where compute is 
+		scalable and separate from storage. Offers greater flexibility.
 
 Summary Table
 --------------	
@@ -148,4 +170,6 @@ In practice, a modern data stack often combines these elements. For example, you
 
 	Transform the integrated data into a Dimensional Model for consumption (ELT pattern).
 	Use a Hub-and-Spoke style to manage the flow.
+
+
 
